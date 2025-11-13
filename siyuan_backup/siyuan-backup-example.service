@@ -1,0 +1,31 @@
+# /etc/systemd/system/siyuan-backup.service
+[Unit]
+Description=SiYuan Notes Auto Backup Service
+Documentation=https://github.com/kody-boop/scripts/tree/main/siyuan_backup
+After=network.target  # 网络就绪后启动
+
+[Service]
+# 运行用户（建议使用普通用户，避免权限问题）
+User=your_username
+Group=your_group
+
+# 脚本所在目录（替换为实际路径）
+WorkingDirectory=/home/your_username/scripts/siyuan_backup
+
+# 执行命令（确保python3路径正确，可通过which python3查询）
+ExecStart=/usr/bin/python3 siyuan_backup.py
+
+# 环境变量配置（腾讯云COS密钥）
+Environment="COS_SECRET_ID=your_actual_secret_id"
+Environment="COS_SECRET_KEY=your_actual_secret_key"
+
+# 输出重定向（可选，也可依赖脚本自身日志）
+StandardOutput=append:/var/log/siyuan_backup/service.log
+StandardError=append:/var/log/siyuan_backup/service_error.log
+
+# 失败后自动重启
+Restart=on-failure
+RestartSec=30s  # 重启间隔30秒
+
+[Install]
+WantedBy=multi-user.target

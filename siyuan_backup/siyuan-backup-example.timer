@@ -1,0 +1,10 @@
+[Unit]
+Description=Timer for SiYuan Backup Service
+
+[Timer]
+# 每天凌晨3点执行
+OnCalendar=*-*-* 03:00:00
+Persistent=true  # 若系统关机，开机后补执行
+
+[Install]
+WantedBy=timers.target

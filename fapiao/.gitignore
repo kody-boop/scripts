@@ -1,0 +1,6 @@
+**/.env
+**/.env.local
+**/.env.*.local
+**/error.log
+**/*.xlsx
+**/__pycache__/
